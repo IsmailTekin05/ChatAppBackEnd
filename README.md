@@ -12,7 +12,7 @@ This is the backend service for a real-time messaging application built with Jav
 - **Testing:** Ensures reliability with JUnit-based test coverage.
 
 ## Technologies Used
-- **Java 17**
+- **Java 23**
 - **Spring Boot** (Spring Web, Spring Security, Spring Data JPA, Spring WebSocket)
 - **Apache Kafka**
 - **PostgreSQL**
