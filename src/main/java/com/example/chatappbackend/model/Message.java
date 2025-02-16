@@ -1,26 +1,41 @@
 package com.example.chatappbackend.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "messages")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
+    @Column(name = "sent_at")
+    private LocalDateTime sentAt;
+
+    private boolean isRead;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    private LocalDateTime timestamp = LocalDateTime.now();
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id", nullable = false)
+    private ChatRoom chatRoom;
+
+    @PrePersist
+    protected void onCreate() {
+        sentAt = LocalDateTime.now();
+        isRead = false;
+    }
 }
